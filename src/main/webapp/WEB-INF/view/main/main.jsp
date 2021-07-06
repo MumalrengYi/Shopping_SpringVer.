@@ -18,7 +18,7 @@
                 <td><form:input path="userId" />
                     <form:errors path="userId"  /> </td>
                 <td rowspan="2">
-                    <input type="image" src="images/img1.jpg" width="100" alt="login"/>
+                    <input type="image" src="https://w7.pngwing.com/pngs/970/567/png-transparent-black-check-logo-computer-icons-checkbox-font-login-button-miscellaneous-cdr-angle-thumbnail.png" width="25" alt="login"/>
                 </td></tr>
             <tr><td>비밀번호</td>
                 <td>
@@ -44,7 +44,7 @@
         <a href="member/memList" >회원리스트</a>
         <a href="emp/empList">직원 리스트</a>
     </c:if>
-    <a href="login/logOut">logOut</a>
+    <a href="login/logOut">로그아웃</a>
 </c:if>
 </body>
 </html>

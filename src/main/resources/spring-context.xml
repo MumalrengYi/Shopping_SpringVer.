@@ -22,20 +22,19 @@
         <mvc:jsp suffix=".jsp"/>
     </mvc:view-resolvers>
     <!-- password암호화 -->
-    <bean id = "bcryptPasswordEncoder"
-          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    <bean id = "bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <constructor-arg value="10"/>
     </bean>
     <!-- 파일 업로드 -->
-    <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000"/>
         <property name="maxInMemorySize" value="100000000"/>
     </bean>
-    <bean id="messageSource"
-          class = "org.springframework.context.support.ResourceBundleMessageSource">
+    <bean id="messageSource" class = "org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
+<!--            에러출력을 위해 가져오는 메세지 소스 -->
             <list>
+                <!-- 에러메시지 출력을 위해 가져온다. -->
                 <value>message.error</value>
             </list>
         </property>

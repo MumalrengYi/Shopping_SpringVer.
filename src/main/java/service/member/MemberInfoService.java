@@ -1,3 +1,4 @@
+
 package service.member;
 
 import javax.servlet.http.HttpSession;
@@ -11,12 +12,11 @@ import repository.MemberRepository;
 
 public class MemberInfoService {
     @Autowired
-    MemberRepository memberRepository;
+    MemberRepository memberRepository; //dto에서 값을 받아와 값을 넣어주기 위해 injection.
     public void memInfo(Model model, HttpSession session) {
-        AuthInfoDTO authInfo =
-                (AuthInfoDTO)session.getAttribute("authInfo");
+        AuthInfoDTO authInfo = (AuthInfoDTO)session.getAttribute("authInfo"); //authinfo 세션값을 가져옴
         String memId = authInfo.getUserId();
         MemberDTO dto = memberRepository.memInfo(memId);
-        model.addAttribute("dto", dto);
+        model.addAttribute("memberCommand", dto);
     }
 }

@@ -19,6 +19,18 @@ public class MemberCommand {
     String memGender;
     String memAccount;
     String memEmailCk;
+
+    //비밀번호 찾기에서 필요한 oldPw
+    String oldPw;
+
+    public String getOldPw() {
+        return oldPw;
+    }
+
+    public void setOldPw(String oldPw) {
+        this.oldPw = oldPw;
+    }
+
     public Boolean isMemPwEqualsMemPwCon() {
         return memPw.equals(memPwCon);
     }
