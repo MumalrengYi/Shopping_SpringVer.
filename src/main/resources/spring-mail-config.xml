@@ -11,7 +11,7 @@
         <property name="host" value="smtp.kakao.com" />
         <property name="protocol" value="smtps" />
         <property name="defaultEncoding" value="utf-8" />
-        <property name="username" value="" />
+        <property name="username" value="so.gentle.octopus" />
         <property name="password" value="" />
         <property name="javaMailProperties" >
             <props>
