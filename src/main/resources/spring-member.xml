@@ -6,7 +6,7 @@
 			http://www.springframework.org/schema/beans/spring-beans.xsd
 			"
 >
-    <bean class="controller.member.MemberController"></bean>
+    <bean class="controller.member.MemberController"/>
     <bean id = "memberJoinService" class="service.member.MemberJoinService" />
     <bean id = "memberRepository" class="repository.MemberRepository" />
     <bean class="controller.member.MemberInfoController" />
@@ -20,5 +20,8 @@
     <bean id = "memberPwConfirmService" class="service.member.MemberPwConfirmService" />
     <bean id = "memberPwUpdateService" class="service.member.MemberPwUpdateService" />
     <bean id="memberOutService" class="service.member.MemberOutService" />
+
+    <!--  사용자 회원가입시 EMAIL인증을 위한 서비스 단 추가-->
+    <bean id="memberEmailCkService" class="service.member.MemberEmailCkService"/>
 
 </beans>

@@ -38,6 +38,7 @@ public class MemberMyPageController {
     public String memOut(){
         return "member/outPw";
     }
+
     @RequestMapping("memOutOk")
     public String memOutOk(
             @RequestParam(value="memPw") String memPw,
@@ -45,6 +46,7 @@ public class MemberMyPageController {
         String path = memberOutService.memDelete(memPw, session, model);
         return path;
     }
+
     @RequestMapping("changePw")
     public String changePw(MemberCommand memberCommand,
                            Errors errors,HttpSession session) {
@@ -59,6 +61,7 @@ public class MemberMyPageController {
         }
         return "redirect:/";
     }
+
     @RequestMapping("pwChangeOk")
     public String pwChangeOk(
             @RequestParam(value = "memPw") String memPw,
@@ -86,11 +89,15 @@ public class MemberMyPageController {
     public String myPage() {
         return "member/memMyPage";
     }
+
+
     @RequestMapping("memDetail")
     public String memDetail(HttpSession session,Model model) {
         memberInfoService.memInfo(model, session);
         return "member/memDetail";
     }
+
+
     @RequestMapping("memSujung")
     public String memSujung(HttpSession session,Model model, @ModelAttribute MemberCommand memberCommand) {
         memberInfoService.memInfo(model, session);

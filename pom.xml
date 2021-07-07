@@ -82,6 +82,7 @@
         </dependency>
         <!-- email -->
         <dependency>
+<!--            EMAIL인증을 위해서 가져온 디펜던시 -->
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.7</version>

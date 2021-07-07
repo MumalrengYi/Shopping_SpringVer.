@@ -15,6 +15,17 @@ public class MemberDTO {
     String memEmailCk;
     String postNumber;
     String detailAdd;
+    
+    String ckOk; //이메일 인증을 위한 값 추가
+
+    public String getCkOk() {
+        return ckOk;
+    }
+
+    public void setCkOk(String ckOk) {
+        this.ckOk = ckOk;
+    }
+
     public String getMemId() {
         return memId;
     }

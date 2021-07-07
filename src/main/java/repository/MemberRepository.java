@@ -14,9 +14,23 @@ public class MemberRepository {
     String namespace = "mappers.memberMapper";
     String statement;
 
+    //회원이메일인증
+    //Update가 완료되면 1 을 반환받음 / 아니면 0을 반환
+    public int updateCkok(MemberDTO dto){
+        statement = namespace+".updateCkOk";
+        return sqlSession.update(statement,dto);
+    }
+
+
     //회원삭제 (memId기준)
     public void memDelete(String memId) {
         statement = namespace +".memDelete";
+        sqlSession.delete(statement, memId);
+    }
+
+    //회원삭제2 (memId기준)
+    public void memDel(String memId) {
+        statement = namespace +".memDel";
         sqlSession.delete(statement, memId);
     }
 
@@ -30,12 +44,6 @@ public class MemberRepository {
     public MemberDTO memInfo(String memId) {
         statement = namespace + ".memInfo";
         return sqlSession.selectOne(statement, memId);
-    }
-
-    //회원삭제2 (memId기준)
-    public void memDel(String memId) {
-        statement = namespace +".memDel";
-        sqlSession.delete(statement, memId);
     }
 
     //훠왼정보수정 (수정할 값을 MemberDTO에서 가져옴)

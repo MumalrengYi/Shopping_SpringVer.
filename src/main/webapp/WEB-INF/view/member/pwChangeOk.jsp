@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>pwChangeOk.jsp [비밀번호 변경 페이지]</title>
 </head>
 <body>
 <form:form action="changePw" name="frm" method="post" id="frm" modelAttribute="memberCommand">
