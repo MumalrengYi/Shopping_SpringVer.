@@ -43,6 +43,7 @@
         <!-- 관리자 -->
         <a href="member/memList" >회원리스트</a>
         <a href="emp/empList">직원 리스트</a>
+        <a href="goods/goodsList">상품리스트</a>
     </c:if>
     <a href="login/logOut">로그아웃</a>
 </c:if>
