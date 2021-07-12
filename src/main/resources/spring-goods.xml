@@ -11,4 +11,7 @@
     <bean class="repository.GoodsRepository"/> <!--DB접근-->
     <bean class="service.goods.GoodsWriteService" />
     <bean class="service.goods.GoodsListService" />
+    <bean class="service.goods.GoodsUpdateService" />
+    <bean class="service.goods.GoodsDetailService" />
+
 </beans>

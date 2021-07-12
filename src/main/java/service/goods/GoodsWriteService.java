@@ -23,7 +23,7 @@ public class GoodsWriteService {
         dto.setProdDelFee(goodsCommand.getProdDelFee());
         dto.setProdDetail(goodsCommand.getProdDetail());
         dto.setProdName(goodsCommand.getProdName());
-        dto.setProdNum(goodsCommand.getGoodsNum());
+        dto.setProdNum(goodsCommand.getProdNum());
         dto.setProdPrice(goodsCommand.getProdPrice());
         dto.setProdSupplyer(goodsCommand.getProdSupplyer());
         dto.setRecommend(goodsCommand.getRecommend());
@@ -59,19 +59,6 @@ public class GoodsWriteService {
             }
         }
         dto.setProdImage(prodImage);
-
-        System.out.println(dto.getCtgr());
-        System.out.println(dto.getProdCapacity());
-        System.out.println(dto.getProdDelFee());
-        System.out.println(dto.getProdDetail());
-        System.out.println(dto.getProdName());
-        System.out.println(dto.getProdPrice());
-        System.out.println(dto.getProdSupplyer());
-        System.out.println(dto.getRecommend());
-        System.out.println(dto.getEmployeeId());
-        System.out.println(dto.getProdImage());
-
-
-        goodsRepository.goodsWrite(dto);
+        goodsRepository.goodsInsert(dto);
     }
 }

@@ -12,16 +12,15 @@
 <table border = 1>
     <tr><th>상품번호</th><th>카테고리</th><th>상품명</th><th>가격</th>
         <th>배송비</th></tr>
-    <c:forEach items="${lists }" var="dto">
-        <tr><td><a href="prodDetail.gd?prodNum=${dto.prodNum }">${dto.prodNum }</a></td>
-            <td>${dto.ctgr }</td>
-            <td>${dto.prodName }</td>
-            <td>
-                <fmt:formatNumber value="${dto.prodPrice }" type="currency" />	</td>
-            <td>${dto.prodDelFee }</td></tr>
+    <c:forEach items="${lists}" var="dto">
+        <tr><td><a href="prodDetail?prodNum=${dto.prodNum}">${dto.prodNum}</a></td>
+            <td>${dto.ctgr}</td>
+            <td>${dto.prodName}</td>
+            <td>가격</td>
+            <td>${dto.prodDelFee}</td></tr>
     </c:forEach>
     <tr><td colspan="8"></td></tr>
 </table>
-<a href="goodsRegist.gd" >상품등록</a>
+<a href="goodsRegist">상품등록</a>
 </body>
 </html>

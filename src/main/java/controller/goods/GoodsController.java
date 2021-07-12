@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import service.goods.GoodsDetailService;
 import service.goods.GoodsListService;
 import service.goods.GoodsNumberService;
 import service.goods.GoodsWriteService;
@@ -21,6 +23,33 @@ public class GoodsController {
     GoodsNumberService goodsNumberService; //goodsRegist사용
     @Autowired
     GoodsWriteService goodsWriteService;
+
+    //goodDetail jsp페이지에 데이터를 뿌려주기 위해 DB단에서 정보 가져오기!
+    @Autowired
+    GoodsDetailService goodsDetailService;
+
+    @RequestMapping("goodsUpdate")
+    public String goodsUpdate(GoodsCommand goodsCommand, Errors errors){
+        new GoodsCommandValidate().validate(goodsCommand,errors);
+        if(errors.hasErrors()){
+            return "goods/goodsModify";
+        }
+        return "redirect:/goods/goodsList";
+    }
+    @RequestMapping("prodModify")
+    public String prodModify(@RequestParam(value="prodNum")String prodNum, Model model){
+        goodsDetailService.goodsDetail(prodNum,model);
+        return "goods/goodsModify";
+    }
+
+    @RequestMapping("prodDetail") //상품 상세보기에 대한 주소지정
+    public String prodDetail(
+            @RequestParam(value="prodNum") String prodNum, Model model){
+        //goodDetail jsp페이지에 데이터를 뿌려주기 위해 DB단에서 정보 가져오기!
+        goodsDetailService.goodsDetail(prodNum, model);
+
+        return "goods/goodsDetail";
+    }
 
     @RequestMapping(value="goodsJoin", method = RequestMethod.POST)
     public String join(GoodsCommand goodsCommand, Errors errors, HttpSession session){

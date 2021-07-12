@@ -21,6 +21,10 @@
         <mvc:jsp prefix="/WEB-INF/view/"/>
         <mvc:jsp suffix=".jsp"/>
     </mvc:view-resolvers>
+<!--    파일저장 -->
+    <!--prefix 경로지정-->
+    <mvc:resources mapping="/**" location="/WEB-INF/view/" cache-period="14400" />
+
     <!-- password암호화 -->
     <bean id = "bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <constructor-arg value="10"/>
