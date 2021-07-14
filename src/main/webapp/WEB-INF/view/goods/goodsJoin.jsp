@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>goodsJoin.jsp</title>
+    <title>Insert title here</title>
 </head>
 <body>
 <form action="goodsJoin" method="post" name="frm"
@@ -38,7 +38,7 @@
         <tr><th>내용</th>
             <td><textarea rows="6" cols="50" name="prodDetail"></textarea></td></tr>
         <tr><th>파일</th>
-            <td><input type="file" name="prodImage1"
+            <td><input type="file" name="prodImage"
                        multiple="multiple"/></td></tr>
         <tr><th colspan="2">
             <input type="submit" value="상품 등록" />

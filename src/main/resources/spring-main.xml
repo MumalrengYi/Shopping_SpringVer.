@@ -7,8 +7,11 @@
 			"
 >
     <bean class="controller.main.MainController"/>
-    <bean class="controller.main.LoginController"/>
+    <bean class="controller.main.LoginController" />
     <bean id = "loginService" class="service.main.LoginService"/>
     <bean id = "logInRepository" class="repository.LogInRepository"/>
+
+    <bean class="controller.ajax.AjaxController"/>
+
 
 </beans>

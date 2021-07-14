@@ -1,79 +1,90 @@
 package controller.goods;
 
-import command.GoodsCommand;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import command.GoodsCommand;
+import service.goods.GoodsDeleteService;
 import service.goods.GoodsDetailService;
 import service.goods.GoodsListService;
 import service.goods.GoodsNumberService;
+import service.goods.GoodsUpdateService;
 import service.goods.GoodsWriteService;
 import validator.GoodsCommandValidate;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("goods")
 public class GoodsController {
     @Autowired
-    GoodsNumberService goodsNumberService; //goodsRegist사용
+    GoodsNumberService goodsNumberService;
     @Autowired
     GoodsWriteService goodsWriteService;
-
-    //goodDetail jsp페이지에 데이터를 뿌려주기 위해 DB단에서 정보 가져오기!
     @Autowired
     GoodsDetailService goodsDetailService;
-
+    @Autowired
+    GoodsUpdateService goodsUpdateService;
+    @Autowired
+    GoodsDeleteService goodsDeleteService;
+    @RequestMapping("goodsDel")
+    public String goodsDel(
+            @RequestParam(value="prodNum")String prodNum,
+            HttpSession session) {
+        goodsDeleteService.goodsDel(prodNum, session);
+        return "redirect:goodsList";
+    }
     @RequestMapping("goodsUpdate")
-    public String goodsUpdate(GoodsCommand goodsCommand, Errors errors){
-        new GoodsCommandValidate().validate(goodsCommand,errors);
-        if(errors.hasErrors()){
+    public String goodsUpdate(GoodsCommand goodsCommand,
+                              Errors errors, HttpSession session) {
+        new GoodsCommandValidate().validate(goodsCommand, errors);
+        if(errors.hasErrors()) {
+            // 값을 command로 받았으므로 오류 발생하여 값을 보낼때 다시
+            // command로 전달된다.
             return "goods/goodsModify";
         }
+        goodsUpdateService.goodsUpdate(goodsCommand, session);
         return "redirect:/goods/goodsList";
     }
     @RequestMapping("prodModify")
-    public String prodModify(@RequestParam(value="prodNum")String prodNum, Model model){
-        goodsDetailService.goodsDetail(prodNum,model);
+    public String prodModify(
+            @RequestParam(value="prodNum") String prodNum,
+            Model model) {
+        goodsDetailService.goodsDetail(prodNum, model);
         return "goods/goodsModify";
     }
-
-    @RequestMapping("prodDetail") //상품 상세보기에 대한 주소지정
+    @RequestMapping("prodDetail")
     public String prodDetail(
-            @RequestParam(value="prodNum") String prodNum, Model model){
-        //goodDetail jsp페이지에 데이터를 뿌려주기 위해 DB단에서 정보 가져오기!
+            @RequestParam(value = "prodNum") String prodNum,
+            Model model) {
         goodsDetailService.goodsDetail(prodNum, model);
-
         return "goods/goodsDetail";
     }
-
-    @RequestMapping(value="goodsJoin", method = RequestMethod.POST)
-    public String join(GoodsCommand goodsCommand, Errors errors, HttpSession session){
-        new GoodsCommandValidate().validate(goodsCommand,errors);
-        if(errors.hasErrors()){
-            //에러가 있으면 상픔등록 페이지로..
+    @RequestMapping("goodsJoin") /// IOC
+    public String goodsJoin(GoodsCommand goodsCommand,
+                            Errors errors,HttpSession session) {
+        new GoodsCommandValidate().validate(goodsCommand, errors);
+        if(errors.hasErrors()) {
             return "goods/goodsJoin";
         }
-        goodsWriteService.goodsWrite(goodsCommand,session);
-        return "redirect:/goods/goodsList";
-    }
-@Autowired
-    GoodsListService goodsListService;
-    @RequestMapping("goodsList")
-    public String list(Model model){
-        goodsListService.goodsList(model);
-        return "goods/goodsList";
+        goodsWriteService.goodsInsrt(goodsCommand, session);
+        return "redirect:goodsList";
     }
 
-    //java에서 만들어진 값을 jsp로 전달할 때 사용하는게 MODEL
-    // 서비스에서 만든 값 --> JSP(뷰)로 값을 전달
-    @RequestMapping("goodsRegist")
-    public String regist(Model model){
+    @RequestMapping("goodsRegist") /// IOC
+    public String goodsRegist(Model model) {
         goodsNumberService.goodsNum(model);
         return "goods/goodsJoin";
+    }
+    @Autowired
+    GoodsListService goodsListService;
+    @RequestMapping("goodsList")
+    public String list(Model model) {
+        goodsListService.goodsList(model);
+        return "goods/goodsList";
     }
 }

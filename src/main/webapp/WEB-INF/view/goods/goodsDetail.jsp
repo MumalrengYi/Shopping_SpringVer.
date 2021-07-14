@@ -1,17 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Geunsu
-  Date: 2021-07-12
-  Time: 오전 9:19
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+    pageContext.setAttribute("cn", "\n");
+%>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>goodsDetail.jsp [상품상세보기]</title>
-</head>
+    <meta charset="UTF-8">
+    <title>goodsDetail.jsp</title>
 </head>
 <body>
 ${test }<br />
@@ -33,7 +32,11 @@ ${test }<br />
 <c:if test="${goodsCommand.recommend == 'Y'}">추천</c:if>
 <c:if test="${goodsCommand.recommend == 'N'}">비 추천</c:if>
 <br />
-상세 정보 ${goodsCommand.prodDetail }<br />
+상세 정보 :
+<p>
+    ${fn:replace(goodsCommand.prodDetail, cn , "<br />") }
+</p>
+
 <c:forTokens items="${goodsCommand.prodImage }" delims="," var="prodImage">
     <img src="../goods/upload/${prodImage }" /><br />
 </c:forTokens>

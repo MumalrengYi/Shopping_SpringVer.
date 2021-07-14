@@ -1,22 +1,27 @@
 package service.goods;
 
-import Model.AuthInfoDTO;
-import Model.GoodsDTO;
-import command.GoodsCommand;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.MultipartFile;
-import repository.GoodsRepository;
-
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+
+import Model.AuthInfoDTO;
+import Model.GoodsDTO;
+import command.GoodsCommand;
+import repository.GoodsRepository;
+
 public class GoodsWriteService {
+    // dto가 가지고 있는 값은 repository를 통해 디비에 저장한다.
     @Autowired
     GoodsRepository goodsRepository;
-
-    public void goodsWrite(GoodsCommand goodsCommand, HttpSession session){
+    public void goodsInsrt(GoodsCommand goodsCommand,
+                           HttpSession session) {
+        /// goodsCommand가 가지고 있는 값을 디비에 저장하기 위해서는
+        /// DTO에 저장한다.
         GoodsDTO dto = new GoodsDTO();
         dto.setCtgr(goodsCommand.getCtgr());
         dto.setProdCapacity(goodsCommand.getProdCapacity());
@@ -27,38 +32,33 @@ public class GoodsWriteService {
         dto.setProdPrice(goodsCommand.getProdPrice());
         dto.setProdSupplyer(goodsCommand.getProdSupplyer());
         dto.setRecommend(goodsCommand.getRecommend());
-        //employeeId는 로그인시 session 저장
-        AuthInfoDTO authInfo = (AuthInfoDTO)session.getAttribute("authInfo");
-        dto.setEmployeeId(authInfo.getGrade());
-        //배열로 받아온건 forEach로 처리
+        AuthInfoDTO authInfo =
+                (AuthInfoDTO)session.getAttribute("authInfo");
+        String employeeId = authInfo.getGrade();
+        dto.setEmployeeId(employeeId);
 
-        String prodImage=""; //DB에 파일 이름만 저장해주기 위해 변수 선언
-        for(MultipartFile mf : goodsCommand.getProdImage1()){
-            //image1에 있는 파일들을 mf에 하나씩 넣어준다.
-            //DB에는 파일 이름만 저장하게 된다. (prodImage 선언)
-
-            String original = mf.getOriginalFilename(); //확장자를 알기 위해서 원래 파일 이름을 가져와야한다
-            //가져와서 확장자만 추출 한다
-
-            String originalExt = original.substring(original.lastIndexOf(".")); //뒤에있는 .부터 잘라내기
-            String store = UUID.randomUUID().toString().replace("-","")+originalExt; //UUID 클래스: 전세계적으로 유니크한 아이디를 부여해줄수있는 클래스
-            // dash (" - ") 가 있는경우에는 지워주도록 하겠습니다.
-
-            //DB에 저장할 파일명을 추출하여 prodImage에 저장
-            prodImage += store+",";
-
-            //파일을 시스템에 저장 , 저장할 경로가 필요하다.
-            // goods패키지 내에 upload 폴더 생성,.
-            String filePath = session.getServletContext().getRealPath("WEB-INF/view/goods/upload");
-            File file = new File(filePath+"/"+store);
-            //파일저장
-            try {
-                mf.transferTo(file);
-            } catch (Exception e) {
-                e.printStackTrace();
+        // 디비에 파일명만 저장하기 위해 OriginalFilename을 가져와서 확장자를 추출
+        String prodImage= "";
+        if(!goodsCommand.getProdImage()[0].getOriginalFilename().equals("")) {
+            for(MultipartFile mf : goodsCommand.getProdImage()) {
+                String original = mf.getOriginalFilename();
+                String originalExt =
+                        original.substring(original.lastIndexOf("."));
+                String store =
+                        UUID.randomUUID().toString().replace("-","")
+                                +originalExt;
+                prodImage += store + ",";
+                String realPath =
+                        session.getServletContext()
+                                .getRealPath("WEB-INF/view/goods/upload");
+                File file = new File(realPath + "/" + store);
+                try {mf.transferTo(file);}
+                catch (Exception e) {e.printStackTrace();}
             }
+            dto.setProdImage(prodImage);
         }
-        dto.setProdImage(prodImage);
+        ///////////////////////
+
         goodsRepository.goodsInsert(dto);
     }
 }

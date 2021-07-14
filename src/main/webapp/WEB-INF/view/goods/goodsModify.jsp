@@ -6,10 +6,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>goodsModify.jsp</title>
+    <title>Insert title here</title>
 </head>
 <body>
-<form:form action="goodsUpdate" name="frm" method="get" modelAttribute="goodsCommand">
+<form:form action="goodsUpdate" name="frm" method="post"
+           modelAttribute="goodsCommand" enctype="multipart/form-data">
     <input type="hidden" name="prodNum" value="${goodsCommand.prodNum }"/>
     <input type="hidden" name="prodName" value="${goodsCommand.prodName }"/>
     상품번호 : ${goodsCommand.prodNum }<br />
@@ -41,10 +42,42 @@
 </select> <br />
     상세내용 : <textarea rows="5" cols="50" name="prodDetail">${goodsCommand.prodDetail }</textarea>
     <form:errors path="prodDetail"/><br />
-    이미지<br />
+    파일
+    <c:forTokens items="${goodsCommand.prodImage }" delims=","
+                 var="prodImage">
+        <p >
+            <span id="fileName"> ${prodImage } </span>
+            <input type="button" id = "btn" value="삭제"
+                   onclick = "fileDel(this)"/>
+        </p>
+    </c:forTokens>
+    파일 추가 :
+    <input type="file" name="prodImage" multiple="multiple"/>
+    <br />
+
+    <input type="text" name="fileDel1" id = "fileDel1" />
+
     <input type="submit" value="수정하기" />
-    <input type="button" value="삭제하기" />
+    <input type="button" value="삭제하기"
+           onclick = "javascript:location.href='goodsDel?prodNum=${goodsCommand.prodNum }'" />
     <input type="button" value="리스트" />
 </form:form>
+<script type="text/javascript"
+        src="http://code.jquery.com/jquery-latest.js" ></script>
+<script type="text/javascript">
+    function fileDel(btn){
+        var delFile = $("#fileDel1").val()
+        if($(btn).attr("value") == "삭제"){
+            $(btn).attr("value","삭제취소");
+            $("#fileDel1").val(
+                $(btn).parent().children("#fileName").text().trim()+","
+                + delFile)
+        }else{
+            $(btn).attr("value","삭제");
+            fileName = $(btn).parent().children("#fileName").text().trim()+",";
+            $("#fileDel1").val(delFile.replace(fileName,""));
+        }
+    }
+</script>
 </body>
 </html>
