@@ -8,15 +8,63 @@
 <!-- <bean id="goodsNumberService" class="service.goods.GoodsNumberService" />   -->
 <!-- ID는 생략해줘도 상관없음 -->
     <bean class="controller.goods.GoodsCartController"/>
+    <!--  카트 컨트롤러  -->
+
     <bean class="controller.goods.GoodsViewController"/>
+    <!--  카트 뷰 컨트롤러  -->
+
+    <bean class="controller.goods.GoodsController"/>
+    <!--  상품 컨트롤러  -->
+
     <bean class="repository.GoodsRepository"/>
+    <!--  상품 레포지토리  -->
+
     <bean class="service.goods.GoodsNumberService" />
+    <!--  상품 번호 서비스단  -->
+
     <bean class="service.goods.GoodsWriteService" />
+    <!--  상품 등록 서비스  -->
+
     <bean class="service.goods.GoodsListService" />
+    <!--  삼품 리스트 보여주는 서비스  -->
+
     <bean class="service.goods.GoodsDetailService" />
+    <!--  상품 상세보기 서비스  -->
+
     <bean class="service.goods.GoodsUpdateService" />
+    <!--  상품정보 수정하는 서비스  -->
+
     <bean class="service.goods.GoodsDeleteService" />
+    <!--  상품 삭제하는 서비스  -->
+
     <bean class="service.goods.GoodsCartAddService" />
+    <!--  (클라이언트) 삼품 카트담기 서비스  -->
+
     <bean class="service.goods.GoodsCartListService" />
+    <!--  (클카이언트) 카트목록보기 서비스  -->
+
+    <bean class="service.goods.GoodsCartQtyDownService" />
+    <!--  (클라이언트) 카트 상품 카운트 감소 서비스  -->
+
+    <bean class="service.goods.GoodsBuyService" />
+    <!--  (클라이언트) 카트담은 상품 구매서비스  -->
+
+    <bean class="service.goods.GoodsOrderService" />
+    <!--  (클라이언트) 카트담은 상품 주문서단 넘기는 서비스   -->
+
+    <bean class="service.goods.OrderProcessListService" />
+    <!--  (클라이언트) 주문 진행사항 확인 서비스  -->
+
+    <bean class="service.goods.DoPaymentService" />
+    <!--  (클라이언트) 주문 결제 서비스  -->
+
+    <bean class="service.goods.ReviewWriteService" />
+    <!--  리뷰 작성 서비스  -->
+
+    <bean class="service.goods.GoodsReviewUpdateService" />
+    <!--  리뷰 수정 서비스  -->
+
+    <bean class="service.goods.GoodsReviewsService" />
+    <!--  리뷰 서비스  -->
 
 </beans>

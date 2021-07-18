@@ -7,7 +7,11 @@
 			"
 >
     <bean class="controller.main.MainController"/>
+    <!--  메인 컨트롤러  -->
+
     <bean class="controller.main.LoginController" />
+    <!--  로그인 컨트롤러  -->
+
     <bean id = "loginService" class="service.main.LoginService"/>
     <bean id = "logInRepository" class="repository.LogInRepository"/>
 

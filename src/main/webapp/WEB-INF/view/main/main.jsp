@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>main.jsp</title>
 </head>
 <body>
 <!-- 로그인 안된 경우 -->
@@ -41,6 +41,7 @@
         <!-- 일반 사용자 -->
         <a href="edit/myPage">마이페이지</a>
         <a href="cart/goodsCartList" >장바구니</a>
+        <a href="cart/OrderProcessList">구매확인</a>
     </c:if>
     <c:if test="${authInfo.grade != 1 }">
         <!-- 관리자 -->
