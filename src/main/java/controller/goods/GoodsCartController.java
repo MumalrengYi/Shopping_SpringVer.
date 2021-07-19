@@ -12,15 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import command.GoodsOrderCommand;
 import command.ReviewCommand;
-import service.goods.DoPaymentService;
-import service.goods.GoodsBuyService;
-import service.goods.GoodsCartAddService;
-import service.goods.GoodsCartListService;
-import service.goods.GoodsCartQtyDownService;
-import service.goods.GoodsOrderService;
-import service.goods.GoodsReviewUpdateService;
-import service.goods.OrderProcessListService;
-import service.goods.ReviewWriteService;
+import service.goods.*;
 
 @Controller
 @RequestMapping("cart")
@@ -43,6 +35,32 @@ public class GoodsCartController {
     ReviewWriteService reviewWriteService;
     @Autowired
     GoodsReviewUpdateService goodsReviewUpdateService;
+    @Autowired
+    CartProdDeleteService cartProdDeleteService;
+    @Autowired
+    GoodsCartRemoveService goodsCartRemoveService;
+
+    @RequestMapping("goodsCartRemove")
+    public String goodsCartRemove(@RequestParam(value="prodNum") String prodNums, HttpSession session){
+        goodsCartRemoveService.cartRemove(prodNums,session);
+        return "redirect:goodsCartList"; //삭제 후 goodsCartList로
+    }
+
+
+    //request param으로 프로덕트 번호를 받아옴
+    //카트을 삭제하면 list페이지로 간다 (redirect: 가야되는 리스트페이지 주소를 입력)
+    //Delete를 하기위해서 Repository를 가야한다. - Reposiotry로 가기 위해서는 Service가 필요하다.-Service생성(CartProdDeleteService)
+        //service생성
+        // [service] 장바구니 삭제를 위해 기준이 되는 번호 즉, prodNum를 가져와야한다 (String prodNum)
+            //service를 생성했으니 [Context에 등록] - <bean class="service.goods.CartProdDeleteService" /> 추가
+    //[Controller] GoodsCartController에 @Autowired로 cartProdDeleteService 인젝션
+    //[Service] GoodsRepository - AutoWired로 인젝션
+        @RequestMapping("cartProdDel")
+    public String cartProdDel(@RequestParam(value="prodNum")String prodNum, HttpSession session){
+        cartProdDeleteService.cartProdDel(prodNum,session);
+        return "redirect:goodsCartList";
+    }
+
     @RequestMapping("reviewUpdate")
     public String reviewUpdate(ReviewCommand reviewCommand) {
         goodsReviewUpdateService.reviewUpdate(reviewCommand);

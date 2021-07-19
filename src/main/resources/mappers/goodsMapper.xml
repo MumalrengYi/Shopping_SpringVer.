@@ -3,6 +3,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.goodsMapper">
 
+
+    <delete id ="cartRemove" parameterType="hashMap">
+        delete from cart
+        <where>
+            <if test="prodNums != null">
+                mem_id=#{memId} and prod_num in
+                    <foreach collection="prodNums" item="prodNum" index="index" open="(" close=")" separator=",">
+                        #{prodNum}
+                    </foreach>
+            </if>
+        </where>
+    </delete>
+    <delete id="cartProdDel" parameterType="Model.CartDTO">
+        delete from cart
+        where mem_id = #{memId} --CartDTO에 있는 memId
+                                and notice_num = #{noticeNum} --CartDTO에 있는 NoticeNum
+    </delete>
+
+
     <!-- primaryKey = id로 작성 -->
     <!-- 1대 : 다 구조  -->
     <resultMap type="Model.GoodsReviewsDTO" id="goodsReviewsMap">

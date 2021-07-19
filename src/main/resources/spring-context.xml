@@ -34,6 +34,44 @@
         <property name="maxUploadSize" value="100000000"/>
         <property name="maxInMemorySize" value="100000000"/>
     </bean>
+        <mvc:interceptors>
+
+            <mvc:interceptor>
+                <mvc:mapping path="/edit/**"/>
+                <bean class="interceptor.AuthCheckInterceptor" />
+            </mvc:interceptor>
+
+            <mvc:interceptor>
+                <mvc:mapping path="/cart/**"/>
+                <bean class="interceptor.AuthCheckInterceptor" />
+            </mvc:interceptor>
+
+            <mvc:interceptor>
+                <mvc:mapping path="/employee/**"/>
+                <bean class="interceptor.AuthCheckInterceptor" />
+            </mvc:interceptor>
+
+            <mvc:interceptor>
+                <mvc:mapping path="/member/**"/>
+                <bean class="interceptor.AuthCheckInterceptor" />
+            </mvc:interceptor>
+
+            <mvc:interceptor>
+                <mvc:mapping path="/emp/**"/>
+                <bean class="interceptor.AuthCheckInterceptor" />
+            </mvc:interceptor>
+
+            <mvc:interceptor>
+                <mvc:mapping path="/goods/**"/>
+                <bean class="interceptor.AuthCheckInterceptor" />
+            </mvc:interceptor>
+
+            <mvc:interceptor>
+                <mvc:mapping path="/admin/**"/>
+                <bean class="interceptor.AuthCheckInterceptor" />
+            </mvc:interceptor>
+        </mvc:interceptors>
+
     <bean id="messageSource" class = "org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
 <!--            에러출력을 위해 가져오는 메세지 소스 -->

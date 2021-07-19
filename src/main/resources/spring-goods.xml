@@ -67,4 +67,9 @@
     <bean class="service.goods.GoodsReviewsService" />
     <!--  리뷰 서비스  -->
 
+    <bean class="service.goods.CartProdDeleteService" />
+    <!--  카트삭제서비스  -->
+
+    <bean class="service.goods.GoodsCartRemoveService" />
+    <!--    -->
 </beans>
