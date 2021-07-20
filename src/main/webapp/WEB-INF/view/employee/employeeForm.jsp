@@ -1,15 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>employeeForm.jsp</title>
 </head>
 <body>
-<form:form action="empJoin" method="post" name="frm"
-           modelAttribute="employeeCommand" >
+<form:form action="empJoin" method="post" name="frm" modelAttribute="employeeCommand" >
     <table border = 1 align="center">
         <tr><td>사원번호</td>
             <td>
@@ -18,8 +16,8 @@
             </td></tr>
         <tr><td>사원아이디</td>
             <td>
-                <form:input path="empUserid"/>
-                <form:errors path="empUserid"/>
+                <form:input path="empUserId"/>
+                <form:errors path="empUserId"/>
             </td></tr>
         <tr><td>비밀번호</td>
             <td>

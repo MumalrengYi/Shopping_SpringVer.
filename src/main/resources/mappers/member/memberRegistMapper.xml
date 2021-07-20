@@ -3,15 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.memberMapper">
 
+    <select id="idFind" parameterType="Model.MemberDTO"
+            resultType="string">
+        select rpad(substr(MEM_ID,1, 4), length(mem_id), '*') from member
+        where mem_phone = #{memPhone} and MEM_EMAIL = #{memEmail}
+          and mem_name = #{memName}
+
+    </select>
+
     <update id="updateCkOk" parameterType="Model.MemberDTO">
-        update key_member
+        update member
         set ckOk = #{ckOk}
         where MEM_EMAIL = #{memEmail} and ckOk is null
---      ckOk가 null인값만 update를 하게 됩니다.
     </update>
 
-
-    <select id="memInfo" parameterType="string" resultType="Model.MemberDTO">
+    <select id="memInfo" parameterType="string"
+            resultType="Model.MemberDTO">
         select MEM_ID memId,MEM_PW memPw,MEM_ADDRESS memAddress, MEM_NAME memName,
                MEM_PHONE memPhone, MEM_BIRTH memBirth, MEM_GENDER memGender,
                MEM_ACCOUNT memAccount, MEM_EMAIL memEmail, MEM_EMAIL_CK memEmailCk,
@@ -19,16 +26,29 @@
         from member
         where MEM_ID = #{memId}
     </select>
+
+    <delete id="memDelete" parameterType="string">
+        delete from member
+        where  MEM_ID = #{memId}
+    </delete>
+
     <delete id="memDel" parameterType="string">
         delete from member
         where mem_id = #{memId}
     </delete>
+    <update id="memPwUpdate" parameterType="Model.MemberDTO">
+        update member
+        set MEM_PW = #{memPw}
+        where mem_id = #{memId}
+    </update>
     <update id="memUpdate" parameterType="Model.MemberDTO">
         update member
         set POST_NUMBER = #{postNumber}, MEM_ADDRESS=#{memAddress} ,
-            DETAIL_ADD = #{detailAdd}, MEM_EMAIL = #{memEmail} ,
-            MEM_EMAIL_CK = #{memEmailCk} , MEM_PHONE = #{memPhone},
-            MEM_ACCOUNT = #{memAccount}
+        DETAIL_ADD = #{detailAdd}, MEM_EMAIL = #{memEmail} ,
+        MEM_EMAIL_CK = #{memEmailCk} , MEM_PHONE = #{memPhone},
+
+        MEM_ACCOUNT = <if test="memAccount == null">null</if>
+        <if test="memAccount != null">#{memAccount}</if>
         where mem_id = #{memId}
     </update>
     <insert id="memJoin" parameterType="Model.MemberDTO">

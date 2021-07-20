@@ -9,6 +9,20 @@
 	EMAIL email, EMP_ADDRESS empAddress
     </sql>
 
+    <update id="empModify" parameterType="Model.EmployeeDTO">
+        update employees
+        set PH_NUMBER = #{phNumber},
+            OFFICE_NUMBER = #{officeNumber},
+            EMAIL = #{email},
+            EMP_ADDRESS = #{empAdress}
+        where EMP_USERID = #{empUserId}
+    </update>
+
+    <select id="empDetail" parameterType="string" resultType="Model.EmployeeDTO">
+        select <include refid="baseColumn"/>
+        from employees
+        where emp_userId = #{empId}
+    </select>
     <delete id="empDelete" parameterType="string">
         delete from employees
         where EMPLOYEE_ID = #{empId}

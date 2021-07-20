@@ -7,6 +7,7 @@
 			"
 >
     <bean class="controller.employee.EmployeeController" />
+    <bean class="controller.employee.EmployeeMypageController"/>
 
     <bean id = "employeeNumService" class="service.employee.EmployeeNumService"/>
     <bean id="employeeRepository" class="repository.EmployeeRepository"/>
@@ -15,4 +16,7 @@
     <bean id="employeeInfoService" class="service.employee.EmployeeInfoService"/>
     <bean id="employeeUpdateService" class="service.employee.EmployeeUpdateService"/>
     <bean id="employeeDeleteService" class="service.employee.EmployeeDeleteService"/>
+    <bean class="service.employee.EmployeeDetailService"/>
+    <bean class="service.employee.EmployeeInfoUpdateService"/>
+    <bean class="service.employee.EmployeePwUpdateService"/>
 </beans>
