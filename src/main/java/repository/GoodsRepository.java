@@ -20,15 +20,13 @@ public class GoodsRepository {
     SqlSession sqlSession;
     String namespace = "mappers.goodsMapper";
     String statement;
-
-    public void cartRemove(Map<String, Object> condition){
-        statement = namespace +".cartRemove";
+    public void cartRemove(Map<String, Object> condition) {
+        statement = namespace + ".cartRemove";
         sqlSession.delete(statement, condition);
-
     }
-    public void cartProdDel(CartDTO dto){
+    public void cartProdDel(CartDTO dto) {
         statement = namespace + ".cartProdDel";
-        sqlSession.delete(statement,dto);
+        sqlSession.delete(statement, dto);
     }
     public GoodsReviewsDTO goodsReviews(String prodNum) {
         statement = namespace + ".goodsReviews";
@@ -94,9 +92,13 @@ public class GoodsRepository {
         statement = namespace + ".goodsDetail";
         return sqlSession.selectOne(statement, prodNum) ;
     }
-    public List<GoodsDTO> goodsList(){
+    public List<GoodsDTO> goodsList(GoodsDTO dto){
         statement = namespace + ".goodsList";
-        return sqlSession.selectList(statement);
+        return sqlSession.selectList(statement, dto);
+    }
+    public int count() {
+        statement = namespace + ".count";
+        return sqlSession.selectOne(statement);
     }
     public void goodsInsert(GoodsDTO dto) {
         statement = namespace + ".goodsInsert";

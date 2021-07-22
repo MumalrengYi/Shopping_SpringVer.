@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.employeeMapper">
+
+    <update id="pwUpdate" parameterType="Model.EmployeeDTO">
+        update employees
+        set EMP_PW = #{empPw}
+        where EMP_USERID = #{empUserId}
+    </update>
+
+    <update id="empModify" parameterType="Model.EmployeeDTO">
+        update employees
+        set PH_NUMBER = #{phNumber}, OFFICE_NUMBER=#{officeNumber},
+            EMAIL = #{email}, EMP_ADDRESS = #{empAddress}
+        where EMP_USERID = #{empUserId}
+    </update>
 
     <sql id="baseColumn" >
         EMPLOYEE_ID employeeId ,EMP_USERID empUserId,
@@ -9,20 +23,14 @@
 	EMAIL email, EMP_ADDRESS empAddress
     </sql>
 
-    <update id="empModify" parameterType="Model.EmployeeDTO">
-        update employees
-        set PH_NUMBER = #{phNumber},
-            OFFICE_NUMBER = #{officeNumber},
-            EMAIL = #{email},
-            EMP_ADDRESS = #{empAdress}
-        where EMP_USERID = #{empUserId}
-    </update>
-
-    <select id="empDetail" parameterType="string" resultType="Model.EmployeeDTO">
-        select <include refid="baseColumn"/>
+    <select id="empDetail" parameterType="string"
+            resultType="Model.EmployeeDTO">
+        select <include refid="baseColumn" />
         from employees
-        where emp_userId = #{empId}
+        where emp_userid = #{empId}
     </select>
+
+
     <delete id="empDelete" parameterType="string">
         delete from employees
         where EMPLOYEE_ID = #{empId}
@@ -47,11 +55,18 @@
         where EMPLOYEE_ID = #{empId}
     </select>
 
-    <select id="empList" resultType="Model.EmployeeDTO">
-        select  <include refid="baseColumn" />
-        from employees
+    <select id="empList" resultType="Model.EmployeeDTO"
+            parameterType="Model.EmployeeDTO">
+        select 	rn, employeeId , empUserId, empPw ,empName,	hireDate,
+        jobId, phNumber, officeNumber, email, empAddress
+        from (select rownum rn, <include refid="baseColumn" />
+        from employees)
+        where rn between #{startEndPageDTO.startRow}
+        and #{startEndPageDTO.endRow}
     </select>
-
+    <select id = "count" resultType="int">
+        select count(*) from employees
+    </select>
     <insert id="empInsert" parameterType="Model.EmployeeDTO">
         insert into employees(EMPLOYEE_ID,EMP_USERID,EMP_PW,EMP_NAME,
                               HIRE_DATE, JOB_ID,PH_NUMBER, OFFICE_NUMBER,
