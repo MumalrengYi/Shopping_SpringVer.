@@ -3,6 +3,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.goodsMapper">
 
+    <select id="wishCount" parameterType="Model.WishDTO" resultMap="int">
+        SELECT count(*) from wish
+        WHERE prod_num = #{prodNum} AND mem_id = #{memId}
+    </select>
+
+    <insert id="wishAdd" parameterType="Model.WishDTO" useGeneratedKeys="false">
+        MERGE into wish w
+        using(
+            SELECT prod_num
+            FROM products
+            WHERE prod_num = #{prodNum}
+            ) p
+        ON (w.prod_num = p.prod_num AND w.mem_id = #{memId})
+        WHEN MATCHED THEN
+               UPDATE SET w.ch = 1111
+                DELETE WHERE (w.prod_num = #{prodNum} and w.mem_id = #{memId})
+        WHEN NOT MATCHED THEN
+            INSERT (w.prod_num, w.mem_id)
+            VALUES (#{prodNum}, #{memId})
+
+    </insert>
+
+
     <delete id="cartRemove" parameterType="hashMap">
         delete from cart
         <where>

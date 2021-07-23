@@ -72,4 +72,8 @@
 
     <bean class="service.goods.GoodsCartRemoveService" />
     <!--    -->
+
+    <bean class="service.goods.GoodsWishService"/>
+    <!--    -->
+
 </beans>

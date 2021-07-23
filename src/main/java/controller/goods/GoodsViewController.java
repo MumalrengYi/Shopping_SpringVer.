@@ -15,8 +15,7 @@ public class GoodsViewController {
     GoodsReviewsService goodsReviewsService;
     @RequestMapping("goodsView")
     public String goodsView(
-            @RequestParam(value="prodNum") String prodNum,
-            Model model) {
+            @RequestParam(value="prodNum") String prodNum, Model model) {
         goodsReviewsService.goodsReviews(prodNum, model);
         return "goods/goodsView";
     }

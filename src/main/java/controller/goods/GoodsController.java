@@ -10,27 +10,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import command.GoodsCommand;
-import service.goods.GoodsDeleteService;
-import service.goods.GoodsDetailService;
-import service.goods.GoodsListService;
-import service.goods.GoodsNumberService;
-import service.goods.GoodsUpdateService;
-import service.goods.GoodsWriteService;
+import service.goods.*;
 import validator.GoodsCommandValidate;
 
 @Controller
 @RequestMapping("goods")
 public class GoodsController {
+
+/////////////////////////////////////////////////////////
     @Autowired
     GoodsNumberService goodsNumberService;
-    @Autowired
+    GoodsWishService goodsWishService;
     GoodsWriteService goodsWriteService;
-    @Autowired
     GoodsDetailService goodsDetailService;
-    @Autowired
     GoodsUpdateService goodsUpdateService;
-    @Autowired
     GoodsDeleteService goodsDeleteService;
+///////////////////////////////////////////////////////////
+
+    @RequestMapping("goodsWishAdd")
+    public String goodsWishAdd(@RequestParam (value="prodNum") String prodNum, HttpSession session, Model model){
+        goodsWishService.goodsWishAdd(prodNum, session, model);
+        return "goods/wish";
+    }
+
     @RequestMapping("goodsDel")
     public String goodsDel(
             @RequestParam(value="prodNum")String prodNum,
